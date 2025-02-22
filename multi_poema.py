@@ -2,6 +2,11 @@
 import numpy as np
 import time
 import subprocess
+import mediapipe as mp 
+import cv2
+from math import sqrt
+import signal
+
 from pynput.keyboard import Controller
 
 #Se crea un objeto Controller para controlar el teclado.
@@ -85,11 +90,6 @@ ultimo_tiempo_apertura_exitosa = 0
 ################ segundo codigo ########################################
 print("Ejecutando...")
 
-import mediapipe as mp 
-import cv2
-import numpy as np
-from math import sqrt
-import signal
 
 """
     estas líneas crean alias para módulos 
