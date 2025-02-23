@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import sys
+import subprocess
 from PyQt5.QtCore import QEvent, Qt, QUrl
 from PyQt5.QtWidgets import (QApplication, QMainWindow, QWidget, QSlider, QVBoxLayout)
 from PyQt5.QtMultimedia import QMediaContent, QMediaPlayer
@@ -10,6 +11,7 @@ from functools import partial
 
 # Ruta del archivo.
 VIDEO_PATH = "VIDEOS/D1/Flor de piña.avi"
+MULTI_POEMA_PATH = "multi_poema.py"  # Ruta del script de poema.
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -58,7 +60,14 @@ class MainWindow(QMainWindow):
 
     def state_changed(self, newstate):
         if newstate == QMediaPlayer.StoppedState:
-            self.close()
+            try:
+                # Iniciar multi_poema.py antes de cerrar esta ventana
+                subprocess.Popen(["python", MULTI_POEMA_PATH])
+                # Cerrar la ventana actual
+                self.close()
+            except Exception as e:
+                print(f"Error al ejecutar multi_poema.py: {e}")
+                self.close()
 
     def eventFilter(self, obj, event):
         if event.type() == QEvent.MouseButtonDblClick:
@@ -67,6 +76,11 @@ class MainWindow(QMainWindow):
 
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_Space:
+            # También ejecutar multi_poema.py cuando se presiona espacio
+            try:
+                subprocess.Popen(["python", MULTI_POEMA_PATH])
+            except Exception as e:
+                print(f"Error al ejecutar multi_poema.py: {e}")
             self.close()
 
 if __name__ == "__main__":

@@ -6,22 +6,26 @@ import mediapipe as mp
 import cv2
 from math import sqrt
 import signal
-
+import sys
 from pynput.keyboard import Controller
+import psutil  # Added to help manage processes
 
 #Se crea un objeto Controller para controlar el teclado.
 keyboard = Controller()
 
-
+# Variable global para almacenar el proceso de Main.py
+main_process = None
 
 def ejecutar_otro_script():
+    global main_process
     # Ruta al script que quieres ejecutar 
-    ruta_script_otro = "C:/Users/david/Videos/Felipe-Matias-main/VOZ/Main.py"  # Reemplaza con la ruta real de tu script
+    ruta_script_otro = "C:/Users/david/Videos/Felipe-Matias/VOZ/Main.py"  # Reemplaza con la ruta real de tu script
 
-    # Lanza el otro script en un proceso separado
-    subprocess.Popen(["python", ruta_script_otro])
+     # Lanza el otro script en un proceso separado
+    main_process = subprocess.Popen(["python", ruta_script_otro])
 
-# Resto del código...
+
+
 
 # Lugar donde deseas ejecutar el otro script, por ejemplo, al comienzo del script
 print("Ejecutando...mian-felipe")
@@ -157,40 +161,63 @@ def cerrar_contador():
 #funcion para calcular la distancia netre dos puntos
 def calc_distance(p1, p2):
     return sqrt((p1[0]-p2[0])*2+(p1[1]-p2[1])*2)
+
+
+def cerrar_main_script():
+    global main_process
+    try:
+        if main_process:
+            # Intentar terminar el proceso principal
+            main_process.terminate()
+            main_process.wait(timeout=3)  # Esperar hasta 3 segundos para que termine
+            
+            # Si el proceso aún está vivo, forzar el cierre
+            if main_process.poll() is None:
+                main_process.kill()
+                main_process.wait()
+    except Exception as e:
+        print(f"Error al cerrar Main.py: {e}")
+
 #funcion para 
 def abrir_script_externo(letra):
     global script_abierto, script_actual, script_proceso, ultimo_tiempo_apertura
 
     try:
-        #checa si hay algun script abierto
-        if script_actual :
+        if script_actual:
             print(f"Ya hay un script abierto: {script_actual}")
-            # en revision  esto se puso porque se cerraba y se abria el script actual
-            #cierra el script actual solo si el script
-            #abierto es diferente del actual
             if script_abierto != script_actual:
                 cerrar_script_externo()
                 
-            # Si ha pasado menos de 3 segundos desde la última apertura, no permite abrir otro script
             tiempo_actual = time.time()
             if tiempo_actual - ultimo_tiempo_apertura < 3:
                 print("Debe esperar 3 segundos antes de abrir otro script.")
                 return
 
-        # Sino hay scripts abiertos, entonces permite abrir uno
         script_name = script_names.get(letra, " ")
-           # Verifica si el script `contador2.py` ya está abierto
         if script_name == barra and script_name in scripts_abiertos:
-              print(f"El script {barra} ya está abierto.")
-              return
-          #llama al scripts con subsproceso
+            print(f"El script {barra} ya está abierto.")
+            return
+
         if script_name:
-            script_proceso = subprocess.Popen(["python", script_name])
-            scripts_abiertos.add(script_name)
-            script_abierto = True
-            script_actual = script_name
+            # Si el script a abrir no es la barra de progreso, cerrar este script y Main.py
+            if script_name != barra:
+                print(f"Abriendo {script_name} y cerrando multi_poema.py y Main.py")
+                script_proceso = subprocess.Popen(["python", script_name])
+                # Cerrar Main.py
+                cerrar_main_script()
+                # Liberar recursos antes de cerrar
+                cap.release()
+                cv2.destroyAllWindows()
+                # Terminar este script
+                sys.exit(0)
+            else:
+                # Si es la barra de progreso, comportamiento normal
+                script_proceso = subprocess.Popen(["python", script_name])
+                scripts_abiertos.add(script_name)
+                script_abierto = True
+                script_actual = script_name
         else:
-                print(f"No se encontró el script para la letra '{letra}'")
+            print(f"No se encontró el script para la letra '{letra}'")
     except Exception as e:
         print("Error al abrir el script externo:", e)
 

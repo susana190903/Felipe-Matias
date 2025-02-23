@@ -1,3 +1,3 @@
 @echo off
-python "C:\Users\ingga\Documents\Felipe\multi_poema.py"
+python "C:\Users\david\Videos\Felipe-Matias\multi_poema.py"
 pause
