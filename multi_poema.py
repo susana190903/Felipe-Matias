@@ -16,7 +16,7 @@ keyboard = Controller()
 
 def ejecutar_otro_script():
     # Ruta al script que quieres ejecutar 
-    ruta_script_otro = "C:/Users/ingga/Documents/Felipe/VOZ/Main.py"  # Reemplaza con la ruta real de tu script
+    ruta_script_otro = "C:/Users/david/Videos/Felipe-Matias-main/VOZ/Main.py"  # Reemplaza con la ruta real de tu script
 
     # Lanza el otro script en un proceso separado
     subprocess.Popen(["python", ruta_script_otro])
@@ -43,19 +43,19 @@ touchcaps = []
 touchcaps = [
     #primera sección
     #{"cap1": (23, 70), "cap2": (235, 130), "com": ["f"], "last": 0, "detected": False, "timer": 0, "title": "Papa"},
-    {"cap1": (23, 160), "cap2": (235, 220), "com": ["e"], "last": 0, "detected": False, "timer": 0, "title": "Felicidad"},
-    {"cap1": (23, 254), "cap2": (235, 315), "com": ["j"], "last": 0, "detected": False, "timer": 0, "title": "Minucias"},
-    {"cap1": (23, 345), "cap2": (235, 406), "com": ["g"], "last": 0, "detected": False, "timer": 0, "title": "Te acuerdas"},
+    {"cap1": (23, 70), "cap2": (190, 130), "com": ["e"], "last": 0, "detected": False, "timer": 0, "title": "Felicidad"},
+    {"cap1": (23, 160), "cap2": (190, 220), "com": ["j"], "last": 0, "detected": False, "timer": 0, "title": "Minucias"},
+    {"cap1": (23, 254), "cap2": (190, 315), "com": ["g"], "last": 0, "detected": False, "timer": 0, "title": "Te acuerdas"},
     #segunda sección
     #{"cap1": (307, 70), "cap2": (510, 128), "com": ["e"], "last": 0, "detected": False, "timer": 0, "title": "Felicidad"},
-    {"cap1": (307, 160), "cap2": (510, 220), "com": ["d"], "last": 0, "detected": False, "timer": 0, "title": "La huella"},
-    {"cap1": (307, 254), "cap2": (510, 315), "com": ["f"], "last": 0, "detected": False, "timer": 0, "title": "Papa"},
-    {"cap1": (307, 345), "cap2": (510, 406), "com": ["h"], "last": 0, "detected": False, "timer": 0, "title": "Tiempo malo"},
+    {"cap1": (220, 70), "cap2": (400, 130), "com": ["d"], "last": 0, "detected": False, "timer": 0, "title": "La huella"},
+    {"cap1": (220, 160), "cap2": (400, 220), "com": ["f"], "last": 0, "detected": False, "timer": 0, "title": "Papa"},
+    {"cap1": (220, 254), "cap2": (400, 315), "com": ["h"], "last": 0, "detected": False, "timer": 0, "title": "Tiempo malo"},
     #tercera sección
    # {"cap1": (580, 70), "cap2": (775, 128), "com": ["e"], "last": 0, "detected": False, "timer": 0, "title": "Felicidad"},
-    {"cap1": (580, 160), "cap2": (775, 220), "com": ["b"], "last": 0, "detected": False, "timer": 0, "title": "Meditando"},
-    {"cap1": (580, 254), "cap2": (775, 315), "com": ["c"], "last": 0, "detected": False, "timer": 0, "title": "Para ti Oaxaca"},
-    {"cap1": (580, 350), "cap2": (790, 410), "com": ["a"], "last": 0, "detected": False, "timer": 0, "title": "Saludo y Flor de pina"},
+    {"cap1": (440, 70), "cap2": (620, 130), "com": ["b"], "last": 0, "detected": False, "timer": 0, "title": "Meditando"},
+    {"cap1": (440, 160), "cap2": (620, 220), "com": ["c"], "last": 0, "detected": False, "timer": 0, "title": "Para ti Oaxaca"},
+    {"cap1": (420, 254), "cap2": (630, 315), "com": ["a"], "last": 0, "detected": False, "timer": 0, "title": "Saludo y Flor de pina"},
     #recuerda cambiar lo que es la letra tanto en la tercera seccion y rectificar los de las otras secciones en el script_names 
     #igual rectifica las letras (consejo para que no te estreses)
 ]
@@ -77,7 +77,7 @@ script_names = {
 
 }
 
-barra = "VOZ/barra_carga.py"
+barra = "barra_carga.py"
 
 # Variable para checar si el script externo ya está abierto
 script_abierto = False
@@ -406,38 +406,66 @@ with mp_hands.Hands(min_detection_confidence=0.5, min_tracking_confidence=0.5, m
         
         if not makefullscreen:
             
-              #LOGO 1
-            logo_tecnm = cv2.imread('ADICIONALES/LOGO_TECNM.png', cv2.IMREAD_COLOR)
-            altura_img1 = 100
-            ancho_img1 = 100
-            logo_tecnm = cv2.resize(logo_tecnm, (ancho_img1, altura_img1))
+            try:
+                # LOGO 1
+                logo_tecnm = cv2.imread('ADICIONALES/LOGO_TECNM.png', cv2.IMREAD_COLOR)
+                if logo_tecnm is not None:
+                    altura_img1 = 100
+                    ancho_img1 = 100
+                    logo_tecnm = cv2.resize(logo_tecnm, (ancho_img1, altura_img1))
+                else:
+                    print("Advertencia: No se pudo cargar LOGO_TECNM.png")
+                    logo_tecnm = np.zeros((100, 100, 3), dtype=np.uint8)
 
-            #LOGO 2
-            logo_ittux = cv2.imread('ADICIONALES/logo_ittuxx.png', cv2.IMREAD_COLOR)
-            altura_img2 = 110
-            ancho_img2 = 110
-            logo_ittux = cv2.resize(logo_ittux, (ancho_img2, altura_img2))
+                # LOGO 2
+                logo_ittux = cv2.imread('ADICIONALES/logo_ittuxx.png', cv2.IMREAD_COLOR)
+                if logo_ittux is not None:
+                    altura_img2 = 100
+                    ancho_img2 = 100
+                    logo_ittux = cv2.resize(logo_ittux, (ancho_img2, altura_img2))
+                else:
+                    print("Advertencia: No se pudo cargar logo_ittux.jpg")
+                    logo_ittux = np.zeros((100, 100, 3), dtype=np.uint8)
 
-            #LOGO 3
-            logo_museo= cv2.imread('ADICIONALES/logo_museo.png', cv2.IMREAD_COLOR)
-            altura_img3 = 100
-            ancho_img3 = 100
-            logo_museo= cv2.resize(logo_museo, (ancho_img3, altura_img3))
+                # LOGO 3
+                logo_museo = cv2.imread('ADICIONALES/logo_museo.png', cv2.IMREAD_COLOR)
+                if logo_museo is not None:
+                    altura_img3 = 100
+                    ancho_img3 = 100
+                    logo_museo = cv2.resize(logo_museo, (ancho_img3, altura_img3))
+                else:
+                    print("Advertencia: No se pudo cargar logo_museo.png")
+                    logo_museo = np.zeros((100, 100, 3), dtype=np.uint8)
 
-            LOGO_TECNM = (22, frameHeight - logo_tecnm.shape[0])
-            LOGO_ITTUX = (ancho_img1 + 500, frameHeight - logo_ittux.shape[0])
-            LOGO_MUSEO = ((LOGO_TECNM[0] + LOGO_ITTUX[0] + logo_ittux.shape[1]) // 2 - logo_museo.shape[1] // 2, frameHeight - logo_museo.shape[0])
+                # Calcular posiciones asegurando que quepan dentro de los límites del marco
+                espacio_entre_logos = 130  # Espacio entre logos
+                ancho_total = ancho_img1 + ancho_img2 + ancho_img3 + 2 * espacio_entre_logos
+                inicio_x = (frameWidth - ancho_total) // 2
 
-            base_image = np.zeros((frameHeight, frameWidth, 3), dtype=np.uint8)
+                # Definir posiciones de los logos
+                LOGO_TECNM = (inicio_x, frameHeight - altura_img1 - 5)  # 10 píxeles de padding desde abajo
+                LOGO_MUSEO = (inicio_x + ancho_img1 + espacio_entre_logos, frameHeight - altura_img2 - 3)
+                LOGO_ITTUX = (inicio_x + ancho_img1 + ancho_img2 + 2 * espacio_entre_logos, frameHeight - altura_img3 - 10)
 
-            base_image[LOGO_TECNM[1]:LOGO_TECNM[1] + logo_tecnm.shape[0], LOGO_TECNM[0]:LOGO_TECNM[0] + logo_tecnm.shape[1]] = logo_tecnm
-            base_image[LOGO_ITTUX[1]:LOGO_ITTUX[1] + logo_ittux.shape[0], LOGO_ITTUX[0]:LOGO_ITTUX[0] + logo_ittux.shape[1]] = logo_ittux
-            base_image[LOGO_MUSEO[1]:LOGO_MUSEO[1] + logo_museo.shape[0], LOGO_MUSEO[0]:LOGO_MUSEO[0] + logo_museo.shape[1]] = logo_museo
-          
-            combined_image = cv2.add(base_image, image)
+                # Crear imagen base
+                base_image = np.zeros((frameHeight, frameWidth, 3), dtype=np.uint8)
 
+                # Colocar logos con verificación de límites
+                for pos, logo in [(LOGO_TECNM, logo_tecnm), (LOGO_MUSEO, logo_museo), (LOGO_ITTUX, logo_ittux)]:
+                    x, y = pos
+                    h, w = logo.shape[:2]
+                    
+                    # Asegurar que no excedamos los límites del marco
+                    if x >= 0 and y >= 0 and x + w <= frameWidth and y + h <= frameHeight:
+                        base_image[y:y+h, x:x+w] = logo
 
-            cv2.imshow('Poemas Felipe Matias Velasco',combined_image )
+                # Combinar imágenes
+                combined_image = cv2.add(base_image, image)
+                cv2.imshow('Poemas Felipe Matias Velasco', combined_image)
+
+            except Exception as e:
+                print(f"Error al manejar los logos: {str(e)}")
+                cv2.imshow('Poemas Felipe Matias Velasco', image)  # Mostrar imagen original si falla el manejo de logos
             #window.overrideredirect(1)  # Elimina los bordes y la barra de título
 
      
