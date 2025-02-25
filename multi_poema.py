@@ -22,10 +22,9 @@ main_process = None
 def ejecutar_otro_script():
     global main_process
     # Ruta al script que quieres ejecutar 
-    ruta_script_otro = "C:/Users/david/Videos/Felipe-Matias/VOZ/Main.py"  # Reemplaza con la ruta real de tu script
 
      # Lanza el otro script en un proceso separado
-    main_process = subprocess.Popen(["python", ruta_script_otro])
+    main_process = subprocess.Popen(["python", "Main.py"])
 
 
 

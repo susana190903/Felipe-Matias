@@ -9,7 +9,7 @@ from functools import partial
 
 
 # Ruta del archivo.
-VIDEO_PATH = "VIDEOS/D2/main2.avi"
+VIDEO_PATH = "VIDEOS/main2.avi"
 
 class MainWindow(QMainWindow):
     def __init__(self):
