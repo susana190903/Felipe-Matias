@@ -8,6 +8,8 @@ from PyQt5.QtWidgets import (QApplication, QMainWindow, QWidget, QSlider, QVBoxL
 from PyQt5.QtMultimedia import QMediaContent, QMediaPlayer
 from PyQt5.QtMultimediaWidgets import QVideoWidget
 from functools import partial
+import pyautogui
+pyautogui.click()
 
 # Ruta del archivo.
 VIDEO_PATH = "VIDEOS/D1/Loma Bonita.mp4"

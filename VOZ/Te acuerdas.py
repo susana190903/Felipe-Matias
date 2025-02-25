@@ -9,10 +9,11 @@ from PyQt5.QtWidgets import (QApplication, QHBoxLayout, QMainWindow,
 from PyQt5.QtMultimedia import QMediaContent, QMediaPlayer
 from PyQt5.QtMultimediaWidgets import QVideoWidget
 from functools import partial  
-
+import pyautogui
+pyautogui.click()
 
 # Ruta del archivo.
-VIDEO_PATH = "VIDEOS/D2/Te acuerdas.avi"
+VIDEO_PATH = "avi/Te acuerdas.avi"
 MULTI_POEMA_PATH = "multi_poema.py"  # Ruta del script de poema.
 
 

@@ -8,9 +8,11 @@ from PyQt5.QtWidgets import (QApplication, QMainWindow, QWidget, QSlider, QVBoxL
 from PyQt5.QtMultimedia import QMediaContent, QMediaPlayer
 from PyQt5.QtMultimediaWidgets import QVideoWidget
 from functools import partial
+import pyautogui
+pyautogui.click()
 
 # Ruta del archivo.
-VIDEO_PATH = "VIDEOS/D1/Flor de piña.avi"
+VIDEO_PATH = "avi/Flor de piña.avi"
 MULTI_POEMA_PATH = "multi_poema.py"  # Ruta del script de poema.
 
 class MainWindow(QMainWindow):

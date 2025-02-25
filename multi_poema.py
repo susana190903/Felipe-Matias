@@ -9,6 +9,9 @@ import signal
 import sys
 from pynput.keyboard import Controller
 import psutil  # Added to help manage processes
+import pyautogui
+
+pyautogui.click()
 
 #Se crea un objeto Controller para controlar el teclado.
 keyboard = Controller()
@@ -81,7 +84,7 @@ script_names = {
 
 }
 
-barra = "barra_carga.py"
+barra = "VOZ/barra_carga.py"
 
 # Variable para checar si el script externo ya está abierto
 script_abierto = False
@@ -107,9 +110,9 @@ mp_hands = mp.solutions.hands
 
 #en esta parte se elige el indice de la camara (por si hay una camara externa)
 if makeoptimize:
-    cap = cv2.VideoCapture(0 + cv2.CAP_DSHOW)
+    cap = cv2.VideoCapture(1 + cv2.CAP_DSHOW)
 else:
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(1)
 
 """
 estas líneas de código están 
