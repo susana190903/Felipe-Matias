@@ -2,4 +2,10 @@ numpy
 pynput
 mediapipe
 opencv-python
+<<<<<<< HEAD
 pyautogui
+=======
+pynput
+psutil
+PyQt5
+>>>>>>> 5d8caf1e948980a66aae1608f7c53440f9a415d3
