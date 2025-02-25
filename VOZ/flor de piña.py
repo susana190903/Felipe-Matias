@@ -9,7 +9,7 @@ from PyQt5.QtMultimedia import QMediaContent, QMediaPlayer
 from PyQt5.QtMultimediaWidgets import QVideoWidget
 from functools import partial
 import pyautogui
-pyautogui.click()
+
 
 # Ruta del archivo.
 VIDEO_PATH = "avi/Flor de piña.avi"
@@ -89,4 +89,5 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = MainWindow()
     window.show()
+    pyautogui.click()
     sys.exit(app.exec_())
